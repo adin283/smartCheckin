@@ -9,7 +9,7 @@ except ImportError:
     print "please try 'sudo pip install requests' to fix it !"
 
 try:
-    import BeautifulSoup
+    from bs4 import BeautifulSoup;
 except ImportError:
     print ImportError
     print "please try 'sudo pip install BeautifulSoup' to fix it !"
