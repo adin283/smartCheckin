@@ -34,14 +34,14 @@ class V2EX:
         self.username = username
         self.password = password
         self.v2ex_session = requests.Session()
-        self.main_soup = BeautifulSoup.BeautifulSoup()
+        self.main_soup = BeautifulSoup()
         print datetime.datetime.now(), " : start 'V2EX' checkin for  ", self.username
 
     def login(self):
         # get login_info random 'once' value
         v2ex_main_req = self.v2ex_session.get(
             self.signin_url, headers=self.headers)
-        v2ex_main_tag = BeautifulSoup.BeautifulSoup(v2ex_main_req.content)
+        v2ex_main_tag = BeautifulSoup(v2ex_main_req.content)
         form_tag = v2ex_main_tag.find(
             'form', attrs={"method": "post", "action": "/signin"})
         input_once_tag = form_tag.find('input', attrs={"name": "once"})
@@ -58,7 +58,7 @@ class V2EX:
         self.v2ex_session.post(
             self.signin_url, data=login_info, headers=self.post_headers)
         main_req = self.v2ex_session.get(self.main_url, headers=self.headers)
-        self.main_soup = BeautifulSoup.BeautifulSoup(main_req.content)
+        self.main_soup = BeautifulSoup(main_req.content)
         top_tag = self.main_soup.find('div', attrs={"id": "Top"})
         user_tag = top_tag.find(href="/member/" + self.username)
         if not user_tag:
@@ -79,7 +79,7 @@ class V2EX:
         # get award if haven't got it
         get_award_req = self.v2ex_session.get(
             self.award_url, headers=self.headers)
-        get_award_soup = BeautifulSoup.BeautifulSoup(get_award_req.content)
+        get_award_soup = BeautifulSoup(get_award_req.content)
         button_tag = get_award_soup.find('input', attrs={'type': 'button'})
         click_href = button_tag.attrs[3][1]
         first_dot_index = click_href.find("'")
