@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import datetime
 
 try:
@@ -16,17 +16,19 @@ except ImportError:
 
 
 class V2EX:
-
     """auto checkin for V2EX and get rewards"""
     username = ''
     password = ''
     signin_url = "https://www.v2ex.com/signin"
     award_url = "https://www.v2ex.com/mission/daily"
+    referer_url = "https://www.v2ex.com/mission/daily"
     main_url = "https://www.v2ex.com"
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:23.0) Gecko/20100101 Firefox/23.0"
     post_headers = {"User-Agent": user_agent,
                     "Referer": signin_url}
     headers = {"User-Agent": user_agent}
+    checkin_headers = {"User-Agent": user_agent,
+                       "Referer": referer_url}
     v2ex_session = {}
     main_soup = {}
 
@@ -85,8 +87,8 @@ class V2EX:
         first_dot_index = click_href.find("'")
         last_dot_index = click_href.find("'", first_dot_index + 1)
         click_url = self.main_url + click_href[
-            first_dot_index + 1: last_dot_index]
-        award_req = self.v2ex_session.get(click_url, headers=self.headers)
+                                    first_dot_index + 1: last_dot_index]
+        award_req = self.v2ex_session.get(click_url, headers=self.checkin_headers)
         if award_req.status_code == requests.codes.ok:
             print datetime.datetime.now(), " : v2ex checkin successfully ! \n"
         else:
