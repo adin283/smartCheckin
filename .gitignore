@@ -37,3 +37,4 @@ log
 *.dat
 *.json
 scheck
+*.idea
