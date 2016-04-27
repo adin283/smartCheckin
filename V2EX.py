@@ -50,18 +50,18 @@ class V2EX:
         input_once_value = input_once_tag.attrs[1][1]
         
         input_username_tag = form_tag.find('input', attrs={"type" : "text", "placeholder" : "用户名或电子邮箱地址"})
-		input_username_name = input_username_tag.attrs["name"]
+	input_username_name = input_username_tag.attrs["name"]
 
-		input_password_tag = form_tag.find('input', attrs={"type" : "password"})
-		input_password_name = input_password_tag.attrs["name"]
+	input_password_tag = form_tag.find('input', attrs={"type" : "password"})
+	input_password_name = input_password_tag.attrs["name"]
 
-		login_info = {
-			"next": "/",
-			input_username_name : self.username,
-			input_password_name : self.password,
-			"once": int(input_once_value),
-			"next": "/"
-		}
+	login_info = {
+		"next": "/",
+		input_username_name : self.username,
+		input_password_name : self.password,
+		"once": int(input_once_value),
+		"next": "/"
+	}
 
         # login
         self.v2ex_session.post(
